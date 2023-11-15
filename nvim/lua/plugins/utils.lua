@@ -1,0 +1,84 @@
+return {
+    {
+        "BartSte/nvim-project-marks",
+        lazy = false,
+        opts = { mappings = false, message = "Input mark..." },
+        config = function(_, opts)
+            require("projectmarks").setup(opts)
+        end,
+    },
+    {
+        "chentoast/marks.nvim",
+        opts = {
+            force_write_shada = true,
+        },
+        config = function(_, opts)
+            require("marks").setup(opts)
+        end,
+    },
+    {
+        "rmagatti/auto-session",
+        opts = {
+            log_level = "error",
+            auto_session_suppress_dirs = { "~/", "~/Downloads", "/" },
+            buftypes_to_ignore = { "neo-tree" },
+        },
+        config = function(_, opts)
+            require("auto-session").setup(opts)
+        end,
+    },
+    { "tpope/vim-commentary" },
+    { "echasnovski/mini.surround", version = false, opts = {} },
+    {
+        "folke/todo-comments.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        opts = {
+            signs = false,
+            keywords = {
+                FIX = {
+                    icon = "",
+                    color = "error",
+                    alt = { "FIXME", "BUG", "FIXIT", "ISSUE" },
+                },
+                TODO = { icon = "", color = "info" },
+                HACK = { icon = "", color = "warning" },
+                WARN = { icon = "", color = "warning", alt = { "WARNING", "XXX" } },
+                PERF = { icon = "", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+                NOTE = { icon = "", color = "hint", alt = { "INFO" } },
+                TEST = { icon = "", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+            },
+        },
+        config = function(_, opts)
+            require("todo-comments").setup(opts)
+            vim.keymap.set("n", "<Leader>ft", "<cmd>TodoTelescope<cr>", {})
+        end,
+    },
+    {
+        "HiPhish/rainbow-delimiters.nvim",
+        opts = function()
+            local rainbow_delimiters = require("rainbow-delimiters")
+            return {
+                strategy = {
+                    [""] = rainbow_delimiters.strategy["global"],
+                    vim = rainbow_delimiters.strategy["local"],
+                },
+                query = {
+                    [""] = "rainbow-delimiters",
+                    lua = "rainbow-blocks",
+                },
+                highlight = {
+                    "RainbowDelimiterYellow",
+                    "RainbowDelimiterBlue",
+                    "RainbowDelimiterOrange",
+                    "RainbowDelimiterGreen",
+                    "RainbowDelimiterViolet",
+                    "RainbowDelimiterCyan",
+                    -- "RainbowDelimiterRed",
+                },
+            }
+        end,
+        config = function(_, opts)
+            require("rainbow-delimiters.setup").setup(opts)
+        end,
+    },
+}
