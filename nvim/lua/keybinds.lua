@@ -1,14 +1,6 @@
 -- Keybindings
 vim.g.mapleader = " "
 
-vim.api.nvim_set_keymap("c", "mg", "<esc>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("i", "mg", "<esc>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "mg", "<esc>", { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap("c", "md", "<cr>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("i", "md", "<cr>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "md", "<cr>", { noremap = true, silent = true })
-
 -- Make indenting in visual mode keep the selection
 vim.api.nvim_set_keymap("v", "<", "<gv", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", ">", ">gv", { noremap = true, silent = true })

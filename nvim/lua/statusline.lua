@@ -30,20 +30,20 @@ function GenerateStatusline()
         line_number,
         margin,
         separator,
+        time,
+        space,
+        separator,
         git_commit_time,
         space,
         git_branch,
         space,
         git_message,
         truncate_left,
-        separator,
-        margin,
-        time,
     })
 end
 
 vim.o.cmdheight = 0
-vim.o.laststatus = 2
+vim.o.laststatus = 0
 
 vim.o.statusline = GenerateStatusline()
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
@@ -52,13 +52,23 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     end,
 })
 
+function HideStatusline()
+    vim.o.laststatus = 0
+end
 function ShowStatusline()
     vim.o.laststatus = 2
 end
+function ToggleStatusline()
+    if vim.o.laststatus == 0 then
+        ShowStatusline()
+    else
+        HideStatusline()
+    end
+end
 
-vim.api.nvim_create_autocmd({ "CursorMoved" }, {
-    callback = function()
-        vim.o.laststatus = 0
-    end,
-})
-vim.keymap.set("n", "<leader>i", ShowStatusline, { noremap = true, silent = true })
+-- vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+--     callback = function()
+--         vim.o.laststatus = 0
+--     end,
+-- })
+vim.keymap.set("n", "<leader>i", ToggleStatusline, { noremap = true, silent = true })

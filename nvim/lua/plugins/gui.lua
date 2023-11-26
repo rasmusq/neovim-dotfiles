@@ -81,6 +81,7 @@ return {
             vim.keymap.set("n", "<Leader>fg", builtin.live_grep, {})
             vim.keymap.set("n", "<Leader>fh", builtin.help_tags, {})
             vim.keymap.set("n", "<Leader>fs", builtin.lsp_document_symbols, {})
+            vim.keymap.set("n", "<Leader>fS", builtin.lsp_dynamic_workspace_symbols, {})
             vim.keymap.set("n", "<Leader>fD", builtin.diagnostics, {})
             vim.keymap.set("n", "<Leader>fd", function()
                 builtin.diagnostics({ bufnr = 0 })
@@ -102,13 +103,13 @@ return {
         priority = 1000,
         config = function(_, opts)
             vim.cmd("colorscheme catppuccin")
-            vim.api.nvim_create_autocmd({ "CursorMoved" }, {
-                callback = function()
-                    vim.cmd("highlight StatusLine guibg=NONE")
-                    vim.cmd("highlight StatusLineNC guibg=NONE")
-                    vim.cmd("highlight VertSplit guifg=bg")
-                end,
-            })
+            -- vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+            --     callback = function()
+            --         vim.cmd("highlight StatusLine guibg=NONE")
+            --         vim.cmd("highlight StatusLineNC guibg=NONE")
+            --         vim.cmd("highlight VertSplit guifg=bg")
+            --     end,
+            -- })
         end,
     },
 }
