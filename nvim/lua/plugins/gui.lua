@@ -1,4 +1,7 @@
 return {
+    {
+        "sindrets/diffview.nvim",
+    },
     -- {
     --     "rcarriga/nvim-notify",
     --     opts = { stages = "fade" },
@@ -55,6 +58,9 @@ return {
                         vertical = { width = 1000 },
                         horizontal = { width = 1000, height = 1000 },
                     },
+                    file_ignore_patterns = {
+                        ".git",
+                    },
                 },
                 pickers = {
                     find_files = {
@@ -82,6 +88,7 @@ return {
             vim.keymap.set("n", "<Leader>fh", builtin.help_tags, {})
             vim.keymap.set("n", "<Leader>fs", builtin.lsp_document_symbols, {})
             vim.keymap.set("n", "<Leader>fS", builtin.lsp_dynamic_workspace_symbols, {})
+            vim.keymap.set("n", "<Leader>fT", builtin.treesitter, {})
             vim.keymap.set("n", "<Leader>fD", builtin.diagnostics, {})
             vim.keymap.set("n", "<Leader>fd", function()
                 builtin.diagnostics({ bufnr = 0 })
