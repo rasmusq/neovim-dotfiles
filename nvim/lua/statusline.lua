@@ -66,22 +66,9 @@ function ToggleStatusline()
     end
 end
 
-<<<<<<< Updated upstream
 -- vim.api.nvim_create_autocmd({ "CursorMoved" }, {
 --     callback = function()
 --         vim.o.laststatus = 0
 --     end,
 -- })
 vim.keymap.set("n", "<leader>i", ToggleStatusline, { noremap = true, silent = true })
-=======
-function HideStatusline()
-    vim.o.laststatus = 0
-end
-
-vim.api.nvim_create_autocmd({ "CursorMoved" }, {
-    callback = function()
-        vim.o.laststatus = 2
-    end,
-})
-vim.keymap.set("n", "<leader>i", ShowStatusline, { noremap = true, silent = true })
->>>>>>> Stashed changes
