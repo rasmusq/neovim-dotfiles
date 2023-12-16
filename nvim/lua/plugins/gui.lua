@@ -20,15 +20,6 @@ return {
     --     },
     -- },
     {
-        "akinsho/toggleterm.nvim",
-        version = "*",
-        opts = {},
-        config = function(_, opts)
-            require("toggleterm").setup(opts)
-            vim.keymap.set("n", "<leader>q", "<cmd>ToggleTerm<cr>", {})
-        end,
-    },
-    {
         "stevearc/oil.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
         opts = {
@@ -48,10 +39,18 @@ return {
             "BurntSushi/ripgrep",
             "nvim-telescope/telescope-frecency.nvim",
             "debugloop/telescope-undo.nvim",
+            "dawsers/telescope-file-history.nvim",
         },
         config = function()
             require("telescope").load_extension("frecency")
             require("telescope").load_extension("undo")
+            require("file_history").setup({
+                -- This is the location where it will create your file history repository
+                backup_dir = "~/.file-history-git",
+                -- command line to execute git
+                git_cmd = "git",
+            })
+            require("telescope").load_extension("file_history")
             require("telescope").setup({
                 defaults = {
                     layout_config = {
@@ -82,10 +81,11 @@ return {
             })
             local builtin = require("telescope.builtin")
             vim.keymap.set("n", "<Leader>ff", builtin.find_files, {})
-            vim.keymap.set("n", "<Leader>fc", builtin.commands, {})
+            vim.keymap.set("n", "<Leader>fC", builtin.commands, {})
+            vim.keymap.set("n", "<Leader>fh", "<cmd>Telescope file_history history<cr>", {})
             vim.keymap.set("n", "<Leader>fr", "<cmd>Telescope frecency<cr>", {})
             vim.keymap.set("n", "<Leader>fg", builtin.live_grep, {})
-            vim.keymap.set("n", "<Leader>fh", builtin.help_tags, {})
+            vim.keymap.set("n", "<Leader>fH", builtin.help_tags, {})
             vim.keymap.set("n", "<Leader>fs", builtin.lsp_document_symbols, {})
             vim.keymap.set("n", "<Leader>fS", builtin.lsp_dynamic_workspace_symbols, {})
             vim.keymap.set("n", "<Leader>fT", builtin.treesitter, {})
@@ -97,6 +97,7 @@ return {
             vim.keymap.set("n", "<Leader>fl", builtin.git_status, {})
             vim.keymap.set("n", "<Leader>fm", builtin.marks, {})
             vim.keymap.set("n", "<Leader>fa", builtin.git_branches, {})
+            vim.keymap.set("n", "<Leader>fc", builtin.git_commits, {})
             vim.keymap.set("n", "<leader>fu", "<cmd>Telescope undo<cr>")
             vim.keymap.set("n", "<Leader>fi", builtin.lsp_implementations, {})
         end,
