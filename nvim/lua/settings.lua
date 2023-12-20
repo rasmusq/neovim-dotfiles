@@ -1,7 +1,7 @@
-vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.shiftwidth = 2
 vim.opt.smarttab = true
+vim.opt.mouse = ""
 
 vim.opt.swapfile = false
 
@@ -10,7 +10,7 @@ vim.opt.termguicolors = true
 
 vim.diagnostic.config({
     virtual_text = true,
-    virtual_lines = false,
+    virtual_lines = true,
     signs = false,
     float = {
         source = "always", -- Or "if_many"
