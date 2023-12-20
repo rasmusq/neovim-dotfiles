@@ -1,5 +1,5 @@
 -- Keybindings
-vim.g.mapleader = ","
+vim.g.mapleader = " "
 vim.api.nvim_set_keymap("c", "mg", "<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("i", "mg", "<esc>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "mg", "<esc>", { noremap = true, silent = true })

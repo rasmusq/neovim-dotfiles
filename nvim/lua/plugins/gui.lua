@@ -28,6 +28,9 @@ return {
             "MunifTanjim/nui.nvim",
             -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
         },
+	config = function (_, opts)
+            vim.keymap.set("n", "<leader>t", "<cmd>Neotree<cr>", {})
+	end
     },
     {
         "nvim-telescope/telescope.nvim",
