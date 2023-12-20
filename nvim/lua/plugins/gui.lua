@@ -20,26 +20,14 @@ return {
     --     },
     -- },
     {
-        "akinsho/toggleterm.nvim",
-        version = "*",
-        opts = {},
-        config = function(_, opts)
-            require("toggleterm").setup(opts)
-            vim.keymap.set("n", "<leader>q", "<cmd>ToggleTerm<cr>", {})
-        end,
-    },
-    {
-        "stevearc/oil.nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-        opts = {
-            view_options = {
-                show_hidden = true,
-            },
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
+            -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
         },
-        config = function(_, opts)
-            require("oil").setup(opts)
-            vim.keymap.set("n", "<leader>t", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-        end,
     },
     {
         "nvim-telescope/telescope.nvim",
