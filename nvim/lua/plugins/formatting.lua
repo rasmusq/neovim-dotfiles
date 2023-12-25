@@ -30,6 +30,9 @@ return {
                     rust = {
                         require("formatter.filetypes.rust").rustfmt,
                     },
+                    cpp = {
+                        require("formatter.filetypes.c").clang_format,
+                    },
                     ["*"] = {
                         require("formatter.filetypes.any").remove_trailing_whitespace,
                     },

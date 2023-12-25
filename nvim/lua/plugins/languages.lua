@@ -1,4 +1,22 @@
 return {
+    -- FIXME Could not make this work
+    --{
+    --    "codethread/qmk.nvim",
+    --    config = function()
+    --        ---@type qmk.UserConfig
+    --        local conf = {
+    --            name = "LAYOUT_preonic_grid",
+    --            layout = {
+    --                "x x x x x x _ _ _ _ _ x x x x x x",
+    --                "x x x x x x _ _ _ _ _ x x x x x x",
+    --                "x x x x x x _ _ _ _ _ x x x x x x",
+    --                "x x x x x x x x _ x x x x x x x x",
+    --                "_ _ x^x^x^x x x _ x x x^x^x^x _ _",
+    --            },
+    --        }
+    --        require("qmk").setup(conf)
+    --    end,
+    --},
     -- TODO: Uncomment when the performance issue is fixed
     { "kaarmu/typst.vim", ft = "typst", lazy = false },
     {

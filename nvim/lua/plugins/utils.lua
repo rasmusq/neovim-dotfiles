@@ -1,5 +1,32 @@
 return {
     {
+        "gbprod/substitute.nvim",
+        opts = {},
+        config = function(_, opts)
+            require("substitute").setup(opts)
+            -- Substitute (imitates the ReplaceWithRegister vim bindings in ideavim)
+            vim.keymap.set("n", "gr", require("substitute").operator, { noremap = true })
+            vim.keymap.set("n", "grr", require("substitute").line, { noremap = true })
+            vim.keymap.set("n", "Rg", require("substitute").eol, { noremap = true })
+            vim.keymap.set("x", "gr", require("substitute").visual, { noremap = true })
+
+            -- Exchange (imitates the exchange vim bindings in ideavim)
+            vim.keymap.set("n", "cx", require("substitute.exchange").operator, { noremap = true })
+            vim.keymap.set("n", "cxx", require("substitute.exchange").line, { noremap = true })
+            vim.keymap.set("x", "X", require("substitute.exchange").visual, { noremap = true })
+            vim.keymap.set("n", "cxc", require("substitute.exchange").cancel, { noremap = true })
+        end,
+    },
+    {
+        "altermo/ultimate-autopair.nvim",
+        event = { "InsertEnter", "CmdlineEnter" },
+        branch = "v0.6", --recomended as each new version will have breaking changes
+        opts = {
+            space = { enable = true },
+            --Config goes here
+        },
+    },
+    {
         "BartSte/nvim-project-marks",
         lazy = false,
         opts = { mappings = false, message = "Input mark..." },
