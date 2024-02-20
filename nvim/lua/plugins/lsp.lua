@@ -72,6 +72,9 @@ return {
             lspconfig.kotlin_language_server.setup({
                 capabilities = capabilities,
             })
+            lspconfig.golangci_lint_ls.setup({
+                capabilities = capabilities,
+            })
             lspconfig.ltex.setup({
                 capabilities = capabilities,
                 on_attach = function(client, bufnr)

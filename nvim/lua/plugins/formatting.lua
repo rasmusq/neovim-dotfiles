@@ -27,6 +27,9 @@ return {
                     markdown = {
                         require("formatter.filetypes.markdown").prettier,
                     },
+                    go = {
+                        require("formatter.filetypes.go").goimports,
+                    },
                     rust = {
                         require("formatter.filetypes.rust").rustfmt,
                     },
