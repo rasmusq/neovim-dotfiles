@@ -2,8 +2,8 @@ return {
     {
         "gelguy/wilder.nvim",
         config = function(_, opts)
-            local wilder = require("wilder")
-            wilder.setup({ modes = { ":", "/", "?" } })
+          local wilder = require('wilder')
+          wilder.setup({modes = {':', '/', '?'}})
         end,
     },
     {
@@ -60,10 +60,10 @@ return {
             require("telescope").load_extension("file_history")
             require("telescope").setup({
                 defaults = {
-                    -- layout_config = {
-                    --     vertical = { width = 1000 },
-                    --     horizontal = { width = 1000, height = 1000 },
-                    -- },
+                    layout_config = {
+                        vertical = { width = 1000 },
+                        horizontal = { width = 1000, height = 1000 },
+                    },
                     file_ignore_patterns = {
                         ".git",
                     },
@@ -126,13 +126,6 @@ return {
         name = "flexoki",
         config = function(_, opts)
             vim.cmd("colorscheme flexoki-dark")
-            vim.api.nvim_create_autocmd({ "CursorMoved" }, {
-                callback = function()
-                    vim.cmd("highlight StatusLine guibg=NONE")
-                    vim.cmd("highlight StatusLineNC guibg=NONE")
-                    vim.cmd("highlight VertSplit guifg=bg")
-                end,
-            })
         end,
     },
     -- {

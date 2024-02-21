@@ -154,6 +154,7 @@ return {
         "williamboman/mason-lspconfig.nvim",
         opts = {
             ensure_installed = {
+                "golangci_lint_ls",
                 "clangd",
                 "cmake",
                 "csharp_ls",
@@ -161,7 +162,6 @@ return {
                 "grammarly",
                 "html",
                 "jdtls",
-                "kotlin_language_server",
                 "ltex",
                 "lua_ls",
                 "marksman",
