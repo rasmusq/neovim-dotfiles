@@ -1,5 +1,13 @@
 return {
     {
+        "dgagn/diagflow.nvim",
+        event = "LspAttach",
+        opts = {
+            placement = "inline",
+            inline_padding_left = 3,
+        },
+    },
+    {
         "gelguy/wilder.nvim",
         config = function(_, opts)
             local wilder = require("wilder")
@@ -110,44 +118,33 @@ return {
         end,
     },
     {
-        "vimpostor/vim-lumen",
-        config = function(_, opts)
-            vim.cmd([[
-              augroup LumenMode
-                autocmd!
-                autocmd User LumenLight colorscheme flexoki-light
-                autocmd User LumenDark colorscheme flexoki-dark
-              augroup END
-            ]])
-        end,
-    },
-    {
         "kepano/flexoki-neovim",
         name = "flexoki",
         config = function(_, opts)
-            vim.cmd("colorscheme flexoki-dark")
+            -- vim.cmd("colorscheme flexoki-dark")
             vim.api.nvim_create_autocmd({ "CursorMoved" }, {
                 callback = function()
                     vim.cmd("highlight StatusLine guibg=NONE")
                     vim.cmd("highlight StatusLineNC guibg=NONE")
                     vim.cmd("highlight VertSplit guifg=bg")
+                    vim.cmd("highlight NormalFloat guibg=NONE ctermbg=NONE")
+                    vim.cmd("highlight FloatBorder guibg=NONE ctermbg=NONE")
                 end,
             })
         end,
     },
-    -- {
-    --     "catppuccin/nvim",
-    --     name = "catppuccin",
-    --     priority = 1000,
-    --     config = function(_, opts)
-    --         vim.cmd("colorscheme catppuccin")
-    --         -- vim.api.nvim_create_autocmd({ "CursorMoved" }, {
-    --         --     callback = function()
-    --         --         vim.cmd("highlight StatusLine guibg=NONE")
-    --         --         vim.cmd("highlight StatusLineNC guibg=NONE")
-    --         --         vim.cmd("highlight VertSplit guifg=bg")
-    --         --     end,
-    --         -- })
-    --     end,
-    -- },
+    {
+        "f-person/auto-dark-mode.nvim",
+        config = {
+            update_interval = 100,
+            set_dark_mode = function()
+                vim.api.nvim_set_option("background", "dark")
+                vim.cmd("colorscheme flexoki-dark")
+            end,
+            set_light_mode = function()
+                vim.api.nvim_set_option("background", "light")
+                vim.cmd("colorscheme flexoki-light")
+            end,
+        },
+    },
 }

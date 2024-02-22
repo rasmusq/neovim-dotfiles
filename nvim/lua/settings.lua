@@ -1,7 +1,7 @@
 vim.opt.number = true
-vim.opt.tabstop = 2      -- Number of spaces tabs count for
-vim.opt.shiftwidth = 2   -- Number of spaces for autoindenting
-vim.opt.softtabstop = 2  -- Number of spaces to use for a <Tab>
+vim.opt.tabstop = 2 -- Number of spaces tabs count for
+vim.opt.shiftwidth = 2 -- Number of spaces for autoindenting
+vim.opt.softtabstop = 2 -- Number of spaces to use for a <Tab>
 vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.mouse = ""
 vim.opt.ignorecase = true
@@ -12,7 +12,9 @@ vim.opt.swapfile = false
 vim.opt.termguicolors = true
 
 vim.diagnostic.config({
-    virtual_text = true,
+    virtual_text = {
+        severity = { min = vim.diagnostic.severity.ERROR },
+    },
     virtual_lines = true,
     signs = false,
     float = {

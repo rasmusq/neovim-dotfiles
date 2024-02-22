@@ -1,8 +1,13 @@
 return {
     {
         "aserowy/tmux.nvim",
-        config = function()
-            return require("tmux").setup()
+        opts = {
+            copy_sync = {
+                redirect_to_clipboard = true,
+            },
+        },
+        config = function(_, opts)
+            return require("tmux").setup(opts)
         end,
     },
     {
