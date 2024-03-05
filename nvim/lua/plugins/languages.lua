@@ -1,23 +1,4 @@
 return {
-    -- FIXME Could not make this work
-    --{
-    --    "codethread/qmk.nvim",
-    --    config = function()
-    --        ---@type qmk.UserConfig
-    --        local conf = {
-    --            name = "LAYOUT_preonic_grid",
-    --            layout = {
-    --                "x x x x x x _ _ _ _ _ x x x x x x",
-    --                "x x x x x x _ _ _ _ _ x x x x x x",
-    --                "x x x x x x _ _ _ _ _ x x x x x x",
-    --                "x x x x x x x x _ x x x x x x x x",
-    --                "_ _ x^x^x^x x x _ x x x^x^x^x _ _",
-    --            },
-    --        }
-    --        require("qmk").setup(conf)
-    --    end,
-    --},
-    -- TODO: Uncomment when the performance issue is fixed
     { "kaarmu/typst.vim", ft = "typst", lazy = false },
     {
         "iamcco/markdown-preview.nvim",
@@ -39,7 +20,6 @@ return {
     {
         "simrat39/rust-tools.nvim",
         config = function()
-            -- Tell rust-tools what codelldb debugger to use
             local mason_registry = require("mason-registry")
             local codelldb = mason_registry.get_package("codelldb")
             local extension_path = codelldb:get_install_path() .. "/extension/"
@@ -55,16 +35,19 @@ return {
                 server = {
                     capabilities = capabilities,
                     on_attach = function(_, bufnr)
-                        -- Hover actions
-                        vim.keymap.set("n", "<C-space>", rust_tools.hover_actions.hover_actions, { buffer = bufnr })
-                        -- Code action groups
-                        vim.keymap.set(
-                            "n",
-                            "<Leader>a",
-                            rust_tools.code_action_group.code_action_group,
-                            { buffer = bufnr }
-                        )
+                        local wk = require("which-key")
+                        wk.register({
+                            L = {
+                                name = "Rust-tools",
+                                a = { rust_tools.hover_actions.hover_actions, "Hover actions" },
+                            },
+                        }, { prefix = "<leader>" })
                     end,
+                },
+                tools = {
+                    hover_actions = {
+                        border = false, -- see vim.api.nvim_open_win()
+                    },
                 },
             })
             require("rust-tools").runnables.runnables()

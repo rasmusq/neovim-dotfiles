@@ -1,3 +1,12 @@
+local change_highlight = function()
+    vim.cmd("highlight VertSplit guifg=bg")
+    vim.cmd("highlight NormalFloat guibg=NONE ctermbg=NONE")
+    vim.cmd("highlight FloatBorder guibg=NONE ctermbg=NONE")
+    vim.cmd("highlight StatusLine guibg=NONE ctermbg=NONE")
+    vim.cmd("highlight StatusLineNC guibg=NONE")
+    vim.cmd("highlight MsgArea guibg=NONE ctermbg=NONE")
+end
+
 return {
     {
         "folke/which-key.nvim",
@@ -11,18 +20,6 @@ return {
             -- or leave it empty to use the default settings
             -- refer to the configuration section below
         },
-    },
-    {
-        "pwntester/octo.nvim",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope.nvim",
-            -- OR 'ibhagwan/fzf-lua',
-            "nvim-tree/nvim-web-devicons",
-        },
-        config = function(_, opts)
-            require("octo").setup(opts)
-        end,
     },
     {
         "dgagn/diagflow.nvim",
@@ -41,6 +38,20 @@ return {
     },
     {
         "sindrets/diffview.nvim",
+        config = function(_, opts)
+            require("diffview").setup(opts)
+            local wk = require("which-key")
+            wk.register({
+                D = {
+                    name = "Diffview",
+                    o = { "<cmd>DiffviewOpen<cr>", "Open" },
+                    O = { "<cmd>DiffviewOpen", "Open custom commits" },
+                    c = { "<cmd>DiffviewClose<cr>", "Close" },
+                    t = { "<cmd>DiffviewToggleFiles<cr>", "Goto next" },
+                    q = { "<cmd>DiffviewOpen<cr>", "Set loclist" },
+                },
+            }, { prefix = "<leader>" })
+        end,
     },
     -- {
     --     "rcarriga/nvim-notify",
@@ -142,31 +153,31 @@ return {
             local wk = require("which-key")
             wk.register({
                 f = {
-                    name = "find",
-                    f = { builtin.find_files, "files" },
-                    C = { builtin.commands, "commands" },
-                    h = { "<cmd>Telescope file_history history<cr>", "history" },
-                    r = { "<cmd>Telescope frecency<cr>", "frecency" },
-                    g = { builtin.live_grep, "live grep" },
-                    H = { builtin.help_tags, "help" },
-                    s = { builtin.lsp_document_symbols, "document symbols" },
-                    S = { builtin.lsp_dynamic_workspace_symbols, "dynamic workspace symbols" },
-                    T = { builtin.treesitter, "treesitter" },
-                    t = { "<cmd>TodoTelescope<cr>", "todos" },
-                    D = { builtin.diagnostics, "project diagnostics" },
+                    name = "Telescope",
+                    f = { builtin.find_files, "Files" },
+                    C = { builtin.commands, "Commands" },
+                    h = { "<cmd>Telescope file_history history<cr>", "History" },
+                    r = { "<cmd>Telescope frecency<cr>", "Frecency" },
+                    g = { builtin.live_grep, "Live grep" },
+                    H = { builtin.help_tags, "Help" },
+                    s = { builtin.lsp_document_symbols, "Document symbols" },
+                    S = { builtin.lsp_dynamic_workspace_symbols, "Dynamic workspace symbols" },
+                    T = { builtin.treesitter, "Treesitter" },
+                    t = { "<cmd>TodoTelescope<cr>", "Todos" },
+                    D = { builtin.diagnostics, "Project diagnostics" },
                     d = {
                         function()
                             builtin.diagnostics({ bufnr = 0 })
                         end,
                         "file diagnostict",
                     },
-                    b = { builtin.buffers, "buffers" },
-                    l = { builtin.git_status, "git status" },
-                    m = { builtin.marks, "marks" },
-                    a = { builtin.git_branches, "git branches" },
-                    c = { builtin.git_commits, "git commits" },
-                    u = { "<cmd>Telescope undo<cr>", "undo history" },
-                    i = { builtin.lsp_implementations, "implementations" },
+                    b = { builtin.buffers, "Buffers" },
+                    l = { builtin.git_status, "Git status" },
+                    m = { builtin.marks, "Marks" },
+                    a = { builtin.git_branches, "Git branches" },
+                    c = { builtin.git_commits, "Git commits" },
+                    u = { "<cmd>Telescope undo<cr>", "Undo history" },
+                    i = { builtin.lsp_implementations, "Implementations" },
                 },
             }, { prefix = "<leader>" })
         end,
@@ -174,18 +185,7 @@ return {
     {
         "kepano/flexoki-neovim",
         name = "flexoki",
-        config = function(_, opts)
-            -- vim.cmd("colorscheme flexoki-dark")
-            vim.api.nvim_create_autocmd({ "CursorMoved" }, {
-                callback = function()
-                    vim.cmd("highlight StatusLine guibg=NONE")
-                    vim.cmd("highlight StatusLineNC guibg=NONE")
-                    vim.cmd("highlight VertSplit guifg=bg")
-                    vim.cmd("highlight NormalFloat guibg=NONE ctermbg=NONE")
-                    vim.cmd("highlight FloatBorder guibg=NONE ctermbg=NONE")
-                end,
-            })
-        end,
+        opts = {},
     },
     {
         "f-person/auto-dark-mode.nvim",
@@ -194,11 +194,16 @@ return {
             set_dark_mode = function()
                 vim.api.nvim_set_option("background", "dark")
                 vim.cmd("colorscheme flexoki-dark")
+                change_highlight()
             end,
             set_light_mode = function()
                 vim.api.nvim_set_option("background", "light")
                 vim.cmd("colorscheme flexoki-light")
+                change_highlight()
             end,
         },
+        config = function(_, opts)
+            require("auto-dark-mode").setup(opts)
+        end,
     },
 }

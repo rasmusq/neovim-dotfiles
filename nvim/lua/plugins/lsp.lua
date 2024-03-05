@@ -2,17 +2,6 @@ return {
     {
         "neovim/nvim-lspconfig",
         config = function()
-            local wk = require("which-key")
-            wk.register({
-                d = {
-                    name = "diagnostics",
-                    d = { vim.diagnostic.open_float, "float" },
-                    e = { vim.diagnostic.goto_prev, "goto prev" },
-                    n = { vim.diagnostic.goto_next, "goto next" },
-                    q = { vim.diagnostic.setloclist, "set loclist" },
-                },
-            }, { prefix = "<leader>" })
-
             -- Use LspAttach autocommand to only map the following keys
             -- after the language server attaches to the current buffer
             vim.api.nvim_create_autocmd("LspAttach", {
@@ -27,27 +16,27 @@ return {
                     local wk = require("which-key")
                     wk.register({
                         l = {
-                            name = "lsp",
-                            d = { vim.lsp.buf.declaration, "declaration" },
-                            i = { vim.lsp.buf.implementation, "implementation" },
-                            D = { vim.lsp.buf.definition, "definition" },
-                            r = { vim.lsp.buf.references, "references" },
-                            R = { vim.lsp.buf.rename, "rename" },
-                            h = { vim.lsp.buf.hover, "hover" },
-                            H = { vim.lsp.buf.signature_help, "help" },
+                            name = "LSP",
+                            d = { vim.lsp.buf.declaration, "Declaration" },
+                            i = { vim.lsp.buf.implementation, "Implementation" },
+                            D = { vim.lsp.buf.definition, "Definition" },
+                            r = { vim.lsp.buf.references, "References" },
+                            R = { vim.lsp.buf.rename, "Rename" },
+                            h = { vim.lsp.buf.hover, "Hover" },
+                            H = { vim.lsp.buf.signature_help, "Help" },
                             f = {
                                 name = "workspace folders",
-                                a = { vim.lsp.buf.add_workspace_folder, "add workspace folder" },
-                                r = { vim.lsp.buf.remove_workspace_folder, "remove workspace folder" },
+                                a = { vim.lsp.buf.add_workspace_folder, "Add workspace folder" },
+                                r = { vim.lsp.buf.remove_workspace_folder, "Remove workspace folder" },
                                 l = {
                                     function()
                                         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
                                     end,
-                                    "list workspace folders",
+                                    "List workspace folders",
                                 },
                             },
-                            t = { vim.lsp.buf.type_definition, "type definition" },
-                            c = { vim.lsp.buf.code_action, "code actions" },
+                            t = { vim.lsp.buf.type_definition, "Type definition" },
+                            c = { vim.lsp.buf.code_action, "Code actions" },
                         },
                     }, { prefix = "<leader>" })
                 end,
@@ -195,13 +184,17 @@ return {
         opts = {
             ui = {
                 -- border = "rounded",
+                show_header = false,
                 icons = {
                     -- package_installed = "✓",
                     -- package_pending = "➜",
                     -- package_uninstalled = "✗",
-                    package_installed = "󰱒",
-                    package_pending = "󰡖",
-                    package_uninstalled = "󰄱",
+                    -- package_installed = "󰱒",
+                    -- package_pending = "󰡖",
+                    -- package_uninstalled = "󰄱",
+                    package_installed = "●",
+                    package_pending = "●",
+                    package_uninstalled = "○",
                 },
             },
         },

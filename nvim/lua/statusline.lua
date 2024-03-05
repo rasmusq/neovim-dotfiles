@@ -43,16 +43,16 @@ function GenerateStatusline()
 end
 
 -- vim.o.cmdheight = 0
--- vim.o.laststatus = 0
+vim.o.laststatus = 0
 vim.cmd("highlight StatusLine guibg=NONE ctermbg=NONE")
-vim.cmd("highlight Command guibg=NONE ctermbg=NONE")
+vim.cmd("highlight MsgArea guibg=NONE ctermbg=NONE")
 
 vim.o.statusline = GenerateStatusline()
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     callback = function()
         vim.o.statusline = GenerateStatusline()
         vim.cmd("highlight StatusLine guibg=NONE ctermbg=NONE")
-        vim.cmd("highlight Command guibg=NONE ctermbg=NONE")
+        vim.cmd("highlight MsgArea guibg=NONE ctermbg=NONE")
     end,
 })
 
@@ -75,4 +75,7 @@ end
 --         vim.o.laststatus = 0
 --     end,
 -- })
-vim.keymap.set("n", "<leader>i", ToggleStatusline, { noremap = true, silent = true })
+local wk = require("which-key")
+wk.register({
+    i = { ToggleStatusline, "Toggle statusline" },
+}, { prefix = "<leader>" })

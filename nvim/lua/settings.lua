@@ -19,6 +19,7 @@ vim.opt.softtabstop = 2 -- Number of spaces to use for a <Tab>
 vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.mouse = ""
 vim.opt.ignorecase = true
+vim.o.showtabline = 0
 
 vim.opt.swapfile = false
 
