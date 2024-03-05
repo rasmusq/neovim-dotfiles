@@ -1,9 +1,34 @@
 return {
     {
+        "folke/which-key.nvim",
+        event = "VeryLazy",
+        init = function()
+            vim.o.timeout = true
+            vim.o.timeoutlen = 300
+        end,
+        opts = {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+        },
+    },
+    {
+        "pwntester/octo.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope.nvim",
+            -- OR 'ibhagwan/fzf-lua',
+            "nvim-tree/nvim-web-devicons",
+        },
+        config = function(_, opts)
+            require("octo").setup(opts)
+        end,
+    },
+    {
         "dgagn/diagflow.nvim",
         event = "LspAttach",
         opts = {
-            placement = "inline",
+            -- placement = "inline",
             inline_padding_left = 3,
         },
     },
@@ -19,7 +44,7 @@ return {
     },
     -- {
     --     "rcarriga/nvim-notify",
-    --     opts = { stages = "fade" },
+    --     opts = { stages = "static", render = "compact" },
     --     config = function(_, opts)
     --         require("notify").setup(opts)
     --         vim.notify = require("notify")
@@ -68,6 +93,7 @@ return {
             require("telescope").load_extension("file_history")
             require("telescope").setup({
                 defaults = {
+                    border = false,
                     -- layout_config = {
                     --     vertical = { width = 1000 },
                     --     horizontal = { width = 1000, height = 1000 },
@@ -135,7 +161,7 @@ return {
     },
     {
         "f-person/auto-dark-mode.nvim",
-        config = {
+        opts = {
             update_interval = 100,
             set_dark_mode = function()
                 vim.api.nvim_set_option("background", "dark")

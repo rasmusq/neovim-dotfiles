@@ -64,7 +64,7 @@ return {
     {
         "nvim-treesitter/nvim-treesitter",
         opts = {
-            ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "kotlin", "rust", "java", "c_charp" },
+            ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "kotlin", "rust", "java", "c_sharp" },
             -- Install parsers synchronously (only applied to `ensure_installed`)
             sync_install = false,
             auto_install = true,

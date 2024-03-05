@@ -28,15 +28,15 @@ return {
             vim.keymap.set("n", "cxc", require("substitute.exchange").cancel, { noremap = true })
         end,
     },
-    {
-        "altermo/ultimate-autopair.nvim",
-        event = { "InsertEnter", "CmdlineEnter" },
-        branch = "v0.6", --recomended as each new version will have breaking changes
-        opts = {
-            space = { enable = true },
-            --Config goes here
-        },
-    },
+    --{
+    --    "altermo/ultimate-autopair.nvim",
+    --    event = { "InsertEnter", "CmdlineEnter" },
+    --    branch = "v0.6", --recomended as each new version will have breaking changes
+    --    opts = {
+    --        space = { enable = true },
+    --        --Config goes here
+    --    },
+    --},
     {
         "BartSte/nvim-project-marks",
         lazy = false,

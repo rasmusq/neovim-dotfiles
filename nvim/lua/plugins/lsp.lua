@@ -176,7 +176,7 @@ return {
         "williamboman/mason.nvim",
         opts = {
             ui = {
-                border = "rounded",
+                -- border = "rounded",
                 icons = {
                     -- package_installed = "✓",
                     -- package_pending = "➜",

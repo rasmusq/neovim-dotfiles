@@ -1,3 +1,15 @@
+if vim.g.neovide then
+    vim.g.neovide_floating_shadow = true
+    vim.g.neovide_floating_z_height = 10
+    vim.g.neovide_light_angle_degrees = 45
+    vim.g.neovide_light_radius = 5
+    vim.g.neovide_floating_blur_amount_x = 2.0
+    vim.g.neovide_floating_blur_amount_y = 2.0
+
+    vim.api.nvim_win_set_option(0, "winblend", 10)
+    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+end
+
 vim.opt.number = true
 vim.opt.tabstop = 2 -- Number of spaces tabs count for
 vim.opt.shiftwidth = 2 -- Number of spaces for autoindenting
