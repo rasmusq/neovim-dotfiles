@@ -1,3 +1,5 @@
+vim.g.mapleader = " "
+
 if vim.g.neovide then
     vim.g.neovide_floating_shadow = true
     vim.g.neovide_floating_z_height = 10

@@ -80,8 +80,26 @@ return {
             "nvim-telescope/telescope-frecency.nvim",
             "debugloop/telescope-undo.nvim",
             "dawsers/telescope-file-history.nvim",
+            "folke/todo-comments.nvim",
         },
         config = function()
+            require("todo-comments").setup({
+                signs = false,
+                keywords = {
+                    FIX = {
+                        icon = "",
+                        color = "error",
+                        alt = { "FIXME", "BUG", "FIXIT", "ISSUE" },
+                    },
+                    TODO = { icon = "", color = "info" },
+                    HACK = { icon = "", color = "warning" },
+                    WARN = { icon = "", color = "warning", alt = { "WARNING", "XXX" } },
+                    PERF = { icon = "", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+                    NOTE = { icon = "", color = "hint", alt = { "INFO" } },
+                    TEST = { icon = "", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+                },
+            })
+
             require("telescope").load_extension("frecency")
             require("telescope").load_extension("undo")
             require("file_history").setup({
@@ -121,26 +139,36 @@ return {
                 },
             })
             local builtin = require("telescope.builtin")
-            vim.keymap.set("n", "<Leader>ff", builtin.find_files, {})
-            vim.keymap.set("n", "<Leader>fC", builtin.commands, {})
-            vim.keymap.set("n", "<Leader>fh", "<cmd>Telescope file_history history<cr>", {})
-            vim.keymap.set("n", "<Leader>fr", "<cmd>Telescope frecency<cr>", {})
-            vim.keymap.set("n", "<Leader>fg", builtin.live_grep, {})
-            vim.keymap.set("n", "<Leader>fH", builtin.help_tags, {})
-            vim.keymap.set("n", "<Leader>fs", builtin.lsp_document_symbols, {})
-            vim.keymap.set("n", "<Leader>fS", builtin.lsp_dynamic_workspace_symbols, {})
-            vim.keymap.set("n", "<Leader>fT", builtin.treesitter, {})
-            vim.keymap.set("n", "<Leader>fD", builtin.diagnostics, {})
-            vim.keymap.set("n", "<Leader>fd", function()
-                builtin.diagnostics({ bufnr = 0 })
-            end, {})
-            vim.keymap.set("n", "<Leader>fb", builtin.buffers, {})
-            vim.keymap.set("n", "<Leader>fl", builtin.git_status, {})
-            vim.keymap.set("n", "<Leader>fm", builtin.marks, {})
-            vim.keymap.set("n", "<Leader>fa", builtin.git_branches, {})
-            vim.keymap.set("n", "<Leader>fc", builtin.git_commits, {})
-            vim.keymap.set("n", "<leader>fu", "<cmd>Telescope undo<cr>")
-            vim.keymap.set("n", "<Leader>fi", builtin.lsp_implementations, {})
+            local wk = require("which-key")
+            wk.register({
+                f = {
+                    name = "find",
+                    f = { builtin.find_files, "files" },
+                    C = { builtin.commands, "commands" },
+                    h = { "<cmd>Telescope file_history history<cr>", "history" },
+                    r = { "<cmd>Telescope frecency<cr>", "frecency" },
+                    g = { builtin.live_grep, "live grep" },
+                    H = { builtin.help_tags, "help" },
+                    s = { builtin.lsp_document_symbols, "document symbols" },
+                    S = { builtin.lsp_dynamic_workspace_symbols, "dynamic workspace symbols" },
+                    T = { builtin.treesitter, "treesitter" },
+                    t = { "<cmd>TodoTelescope<cr>", "todos" },
+                    D = { builtin.diagnostics, "project diagnostics" },
+                    d = {
+                        function()
+                            builtin.diagnostics({ bufnr = 0 })
+                        end,
+                        "file diagnostict",
+                    },
+                    b = { builtin.buffers, "buffers" },
+                    l = { builtin.git_status, "git status" },
+                    m = { builtin.marks, "marks" },
+                    a = { builtin.git_branches, "git branches" },
+                    c = { builtin.git_commits, "git commits" },
+                    u = { "<cmd>Telescope undo<cr>", "undo history" },
+                    i = { builtin.lsp_implementations, "implementations" },
+                },
+            }, { prefix = "<leader>" })
         end,
     },
     {
