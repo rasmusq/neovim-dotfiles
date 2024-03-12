@@ -1,52 +1,24 @@
 return {
     {
-        "mhartington/formatter.nvim",
-        opts = function()
-            local util = require("formatter.util")
-            return {
-                logging = true,
-                log_level = vim.log.levels.WARN,
-                -- All formatter configurations are opt-in
-                filetype = {
-                    lua = {
-                        require("formatter.filetypes.lua").stylua,
-                        function()
-                            return {
-                                exe = "stylua",
-                                args = {
-                                    "--search-parent-directories",
-                                    "--stdin-filepath",
-                                    util.escape_path(util.get_current_buffer_file_path()),
-                                    "--",
-                                    "-",
-                                },
-                                stdin = true,
-                            }
-                        end,
-                    },
-                    markdown = {
-                        require("formatter.filetypes.markdown").prettier,
-                    },
-                    go = {
-                        require("formatter.filetypes.go").goimports,
-                    },
-                    rust = {
-                        require("formatter.filetypes.rust").rustfmt,
-                    },
-                    cpp = {
-                        require("formatter.filetypes.c").clang_format,
-                    },
-                    ["*"] = {
-                        require("formatter.filetypes.any").remove_trailing_whitespace,
-                    },
-                },
-            }
-        end,
+        "stevearc/conform.nvim",
+        opts = {
+            formatters_by_ft = {
+                lua = { "stylua" },
+                bib = { "bibtex-tidy" },
+                rust = { "rustfmt" },
+                xml = { "xmlformat" },
+                go = { "goimports" },
+                markdown = { "prettier" },
+                cpp = { "clang_format" },
+                javascript = { "prettier" },
+            },
+        },
         config = function(_, opts)
-            require("formatter").setup(opts)
-            vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-                callback = function()
-                    vim.cmd("FormatWrite")
+            require("conform").setup(opts)
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                pattern = "*",
+                callback = function(args)
+                    require("conform").format({ bufnr = args.buf })
                 end,
             })
         end,

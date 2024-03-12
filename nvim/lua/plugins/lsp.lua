@@ -64,6 +64,9 @@ return {
             lspconfig.tsserver.setup({
                 capabilities = capabilities,
             })
+            lspconfig.svelte.setup({
+                capabilities = capabilities,
+            })
             lspconfig.cssls.setup({
                 capabilities = capabilities,
             })

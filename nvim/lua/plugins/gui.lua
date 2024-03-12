@@ -169,7 +169,7 @@ return {
                         function()
                             builtin.diagnostics({ bufnr = 0 })
                         end,
-                        "file diagnostict",
+                        "File diagnostics",
                     },
                     b = { builtin.buffers, "Buffers" },
                     l = { builtin.git_status, "Git status" },
