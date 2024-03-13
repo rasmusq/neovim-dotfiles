@@ -55,7 +55,7 @@ return {
                 capabilities = capabilities,
                 filetypes = { "markdown", "latex", "typst" },
             })
-            lspconfig.marksman.setup({
+            lspconfig.remark_ls.setup({
                 capabilities = capabilities,
             })
             lspconfig.html.setup({
