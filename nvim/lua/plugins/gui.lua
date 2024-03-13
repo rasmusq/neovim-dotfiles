@@ -194,11 +194,17 @@ return {
             set_dark_mode = function()
                 vim.api.nvim_set_option("background", "dark")
                 vim.cmd("colorscheme flexoki-dark")
+                if not vim.g.neovide then
+                    vim.cmd("highlight Normal guibg=NONE ctermbg=NONE")
+                end
                 change_highlight()
             end,
             set_light_mode = function()
                 vim.api.nvim_set_option("background", "light")
                 vim.cmd("colorscheme flexoki-light")
+                if not vim.g.neovide then
+                    vim.cmd("highlight Normal guibg=NONE ctermbg=NONE")
+                end
                 change_highlight()
             end,
         },
