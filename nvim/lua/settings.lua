@@ -7,7 +7,7 @@ if vim.g.neovide then
     vim.g.neovide_light_radius = 5
     vim.g.neovide_floating_blur_amount_x = 2.0
     vim.g.neovide_floating_blur_amount_y = 2.0
-    vim.g.neovide_transparency = 0.7
+    vim.g.neovide_transparency = 1.0
 
     vim.api.nvim_win_set_option(0, "winblend", 10)
     vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
