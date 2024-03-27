@@ -9,6 +9,7 @@ return {
                 xml = { "xmlformat" },
                 go = { "goimports" },
                 markdown = { "prettier" },
+                typst = { "typstfmt" },
                 cpp = { "clang_format" },
                 javascript = { "prettier" },
             },

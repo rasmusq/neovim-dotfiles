@@ -36,7 +36,7 @@ return {
                                 },
                             },
                             t = { vim.lsp.buf.type_definition, "Type definition" },
-                            c = { vim.lsp.buf.code_action, "Code actions" },
+                            a = { vim.lsp.buf.code_action, "Code actions" },
                         },
                     }, { prefix = "<leader>" })
                 end,
@@ -44,13 +44,27 @@ return {
 
             local lspconfig = require("lspconfig")
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
-            lspconfig.typst_lsp.setup({
+            -- Commented out because there is a new kid on the block; tinymist
+            -- lspconfig.typst_lsp.setup({
+            --     capabilities = capabilities,
+            --     settings = {
+            --         exportpdf = "onsave", -- ontype/onsave/never.
+            --     },
+            -- })
+            lspconfig.tinymist.setup({
                 capabilities = capabilities,
                 settings = {
-                    exportpdf = "onsave", -- ontype/onsave/never.
+                    exportPdf = "onType",
+                    -- on_attach = function()
+                    --     vim.lsp.buf.execute_command({
+                    --         command = "tinymist.pinMain",
+                    --         arguments = { vim.api.nvim_buf_get_name(0) },
+                    --     })
+                    -- end,
                 },
             })
-            lspconfig.rust_analyzer.setup({ capabilities = capabilities })
+            -- Commented out because rustaceanvim sets it up on its own
+            -- lspconfig.rust_analyzer.setup({ capabilities = capabilities })
             lspconfig.pest_ls.setup({ capabilities = capabilities })
             lspconfig.grammarly.setup({
                 capabilities = capabilities,

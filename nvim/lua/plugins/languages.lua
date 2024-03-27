@@ -2,6 +2,15 @@ return {
     { "pest-parser/pest.vim" },
     { "kaarmu/typst.vim", ft = "typst", lazy = false },
     {
+        "chomosuke/typst-preview.nvim",
+        lazy = false, -- or ft = 'typst'
+        version = "0.1.*",
+        opts = { invert_colors = "auto" },
+        build = function()
+            require("typst-preview").update()
+        end,
+    },
+    {
         "iamcco/markdown-preview.nvim",
         cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
         ft = { "markdown" },
@@ -19,41 +28,60 @@ return {
     { "ixru/nvim-markdown" },
     { "barreiroleo/ltex_extra.nvim" },
     {
-        "simrat39/rust-tools.nvim",
-        config = function()
-            local mason_registry = require("mason-registry")
-            local codelldb = mason_registry.get_package("codelldb")
-            local extension_path = codelldb:get_install_path() .. "/extension/"
-            local codelldb_path = extension_path .. "adapter/codelldb"
-            local liblldb_path = extension_path .. "lldb/lib/liblldb.so"
-
-            local capabilities = require("cmp_nvim_lsp").default_capabilities()
-            local rust_tools = require("rust-tools")
-            rust_tools.setup({
-                dap = {
-                    adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
-                },
-                server = {
-                    capabilities = capabilities,
-                    on_attach = function(_, bufnr)
-                        local wk = require("which-key")
-                        wk.register({
-                            L = {
-                                name = "Rust-tools",
-                                a = { rust_tools.hover_actions.hover_actions, "Hover actions" },
-                            },
-                        }, { prefix = "<leader>" })
-                    end,
-                },
-                tools = {
-                    hover_actions = {
-                        border = false, -- see vim.api.nvim_open_win()
+        "mrcjkb/rustaceanvim",
+        version = "^4", -- Recommended
+        ft = { "rust" },
+        config = function(_, opts)
+            local wk = require("which-key")
+            wk.register({
+                l = {
+                    u = {
+                        name = "Rustaceanvim",
+                        a = { "<cmd>RustLsp codeAction<cr>", "Code actions" },
+                        r = { "<cmd>RustLsp runnables<cr>", "Runnables" },
+                        d = { "<cmd>RustLsp debuggables<cr>", "Debuggables" },
                     },
                 },
-            })
-            require("rust-tools").runnables.runnables()
+            }, { prefix = "<leader>" })
         end,
     },
+    -- {
+    --     "simrat39/rust-tools.nvim",
+    --     config = function()
+    --         local mason_registry = require("mason-registry")
+    --         local codelldb = mason_registry.get_package("codelldb")
+    --         local extension_path = codelldb:get_install_path() .. "/extension/"
+    --         local codelldb_path = extension_path .. "adapter/codelldb"
+    --         local liblldb_path = extension_path .. "lldb/lib/liblldb.so"
+
+    --         local capabilities = require("cmp_nvim_lsp").default_capabilities()
+    --         local rust_tools = require("rust-tools")
+    --         rust_tools.setup({
+    --             dap = {
+    --                 adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
+    --             },
+    --             server = {
+
+    --                 capabilities = capabilities,
+    --                 on_attach = function(_, bufnr)
+    --                     local wk = require("which-key")
+    --                     wk.register({
+    --                         L = {
+    --                             name = "Rust-tools",
+    --                             a = { rust_tools.hover_actions.hover_actions, "Hover actions" },
+    --                         },
+    --                     }, { prefix = "<leader>" })
+    --                 end,
+    --             },
+    --             tools = {
+    --                 hover_actions = {
+    --                     border = false, -- see vim.api.nvim_open_win()
+    --                 },
+    --             },
+    --         })
+    --         require("rust-tools").runnables.runnables()
+    --     end,
+    -- },
     {
         "folke/neodev.nvim",
         opts = {

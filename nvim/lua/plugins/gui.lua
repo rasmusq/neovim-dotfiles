@@ -84,116 +84,105 @@ return {
         end,
     },
     {
-        "nvim-telescope/telescope.nvim",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "BurntSushi/ripgrep",
-            "nvim-telescope/telescope-frecency.nvim",
-            "debugloop/telescope-undo.nvim",
-            "dawsers/telescope-file-history.nvim",
-            "folke/todo-comments.nvim",
-        },
+        "ibhagwan/fzf-lua",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
         config = function()
-            require("todo-comments").setup({
-                signs = false,
-                keywords = {
-                    FIX = {
-                        icon = "",
-                        color = "error",
-                        alt = { "FIXME", "BUG", "FIXIT", "ISSUE" },
+            require("fzf-lua").setup({
+                fzf_opts = { ["--layout"] = "default", ["--marker"] = "+" },
+                winopts = {
+                    border = { " ", " ", " ", " ", " ", " ", " ", " " },
+                    preview = {
+                        scrollbar = "none",
+                        layout = "flex",
+                        hidden = "nohidden",
                     },
-                    TODO = { icon = "", color = "info" },
-                    HACK = { icon = "", color = "warning" },
-                    WARN = { icon = "", color = "warning", alt = { "WARNING", "XXX" } },
-                    PERF = { icon = "", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
-                    NOTE = { icon = "", color = "hint", alt = { "INFO" } },
-                    TEST = { icon = "", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+                },
+                fzf_colors = {
+                    ["fg"] = { "fg", "CursorLine" },
+                    ["bg"] = { "bg", "Normal" },
+                    ["hl"] = { "fg", "Comment" },
+                    ["fg+"] = { "fg", "Normal" },
+                    ["bg+"] = { "bg", "CursorLine" },
+                    ["hl+"] = { "fg", "Statement" },
+                    ["info"] = { "fg", "PreProc" },
+                    ["prompt"] = { "fg", "Conditional" },
+                    ["pointer"] = { "fg", "Exception" },
+                    ["marker"] = { "fg", "Keyword" },
+                    ["spinner"] = { "fg", "Label" },
+                    ["header"] = { "fg", "Comment" },
+                    ["gutter"] = { "bg", "Normal" },
                 },
             })
 
-            require("telescope").load_extension("frecency")
-            require("telescope").load_extension("undo")
-            require("file_history").setup({
-                -- This is the location where it will create your file history repository
-                backup_dir = "~/.file-history-git",
-                -- command line to execute git
-                git_cmd = "git",
-            })
-            require("telescope").load_extension("file_history")
-            require("telescope").setup({
-                defaults = {
-                    border = false,
-                    -- layout_config = {
-                    --     vertical = { width = 1000 },
-                    --     horizontal = { width = 1000, height = 1000 },
-                    -- },
-                    file_ignore_patterns = {
-                        ".git",
-                    },
-                },
-                pickers = {
-                    find_files = {
-                        hidden = true,
-                    },
-                    live_grep = {
-                        additional_args = function()
-                            return { "--hidden" }
-                        end,
-                    },
-                },
-                extensions = {
-                    frecency = {
-                        show_scores = false,
-                        show_unindexed = true,
-                        disable_devicons = false,
-                    },
-                },
-            })
-            local builtin = require("telescope.builtin")
             local wk = require("which-key")
             wk.register({
                 f = {
                     name = "Telescope",
-                    f = { builtin.find_files, "Files" },
-                    C = { builtin.commands, "Commands" },
-                    h = { "<cmd>Telescope file_history history<cr>", "History" },
-                    r = { "<cmd>Telescope frecency<cr>", "Frecency" },
-                    g = { builtin.live_grep, "Live grep" },
-                    H = { builtin.help_tags, "Help" },
-                    s = { builtin.lsp_document_symbols, "Document symbols" },
-                    S = { builtin.lsp_dynamic_workspace_symbols, "Dynamic workspace symbols" },
-                    T = { builtin.treesitter, "Treesitter" },
-                    t = { "<cmd>TodoTelescope<cr>", "Todos" },
-                    D = { builtin.diagnostics, "Project diagnostics" },
-                    d = {
-                        function()
-                            builtin.diagnostics({ bufnr = 0 })
-                        end,
-                        "File diagnostics",
+                    f = { require("fzf-lua").files, "Files" },
+                    g = { require("fzf-lua").live_grep, "Live Grep" },
+                    G = { require("fzf-lua").grep, "Grep" },
+                    t = {
+                        "<cmd>lua require('fzf-lua').grep({search='TODO|HACK|PERF|NOTE|FIX', no_esc=true})<cr>",
+                        "Todos",
                     },
-                    b = { builtin.buffers, "Buffers" },
-                    l = { builtin.git_status, "Git status" },
-                    m = { builtin.marks, "Marks" },
-                    a = { builtin.git_branches, "Git branches" },
-                    c = { builtin.git_commits, "Git commits" },
-                    u = { "<cmd>Telescope undo<cr>", "Undo history" },
-                    i = { builtin.lsp_implementations, "Implementations" },
+
+                    s = { require("fzf-lua").lsp_document_symbols, "Document symbols" },
+                    S = { require("fzf-lua").lsp_workspace_symbols, "Workspace symbols" },
+                    i = { require("fzf-lua").lsp_implementations, "Implementations" },
+                    r = { require("fzf-lua").lsp_references, "References" },
+                    e = { require("fzf-lua").lsp_definitions, "Definitions" },
+                    E = { require("fzf-lua").lsp_declarations, "Declarations" },
+                    y = { require("fzf-lua").lsp_typedefs, "Type definitions" },
+                    a = { require("fzf-lua").lsp_code_actions, "Code actions" },
+                    T = { require("fzf-lua").treesitter, "Treesitter" },
+
+                    D = { require("fzf-lua").diagnostics_workspace, "Workspace diagnostics" },
+                    d = { require("fzf-lua").diagnostics_document, "Document diagnostics" },
+                    b = { require("fzf-lua").buffers, "Buffers" },
+                    m = { require("fzf-lua").marks, "Marks" },
+                    h = { require("fzf-lua").help_tags, "Help" },
+                    C = { require("fzf-lua").commands, "Commands" },
+                    o = { require("fzf-lua").colorschemes, "Colorschemes" },
+
+                    I = { require("fzf-lua").git_status, "Git status" },
+                    B = { require("fzf-lua").git_branches, "Git branches" },
+                    c = { require("fzf-lua").git_commits, "Git commits" },
                 },
             }, { prefix = "<leader>" })
         end,
+    },
+    {
+        "folke/todo-comments.nvim",
+        opts = {
+            signs = false,
+            keywords = {
+                FIX = {
+                    icon = "",
+                    color = "error",
+                    alt = { "FIXME", "BUG", "FIXIT", "ISSUE" },
+                },
+                TODO = { icon = "", color = "info" },
+                HACK = { icon = "", color = "warning" },
+                WARN = { icon = "", color = "warning", alt = { "WARNING", "XXX" } },
+                PERF = { icon = "", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+                NOTE = { icon = "", color = "hint", alt = { "INFO" } },
+                TEST = { icon = "", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+            },
+        },
     },
     {
         "kepano/flexoki-neovim",
         name = "flexoki",
         opts = {},
     },
+    { "rose-pine/neovim", name = "rose-pine" },
     {
         "f-person/auto-dark-mode.nvim",
         opts = {
             update_interval = 100,
             set_dark_mode = function()
                 vim.api.nvim_set_option("background", "dark")
-                vim.cmd("colorscheme flexoki-dark")
+                vim.cmd("colorscheme rose-pine-main")
                 if not vim.g.neovide then
                     vim.cmd("highlight Normal guibg=NONE ctermbg=NONE")
                 end
@@ -201,7 +190,7 @@ return {
             end,
             set_light_mode = function()
                 vim.api.nvim_set_option("background", "light")
-                vim.cmd("colorscheme flexoki-light")
+                vim.cmd("colorscheme rose-pine-dawn")
                 if not vim.g.neovide then
                     vim.cmd("highlight Normal guibg=NONE ctermbg=NONE")
                 end
