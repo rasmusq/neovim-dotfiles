@@ -79,40 +79,52 @@ return {
             "MunifTanjim/nui.nvim",
             -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
         },
+        opts = {
+            popup_border_style = "soli ",
+        },
         config = function(_, opts)
+            require("neo-tree").setup(opts)
             vim.keymap.set("n", "<leader>t", "<cmd>Neotree<cr>", {})
         end,
     },
     {
         "ibhagwan/fzf-lua",
         dependencies = { "nvim-tree/nvim-web-devicons" },
-        config = function()
-            require("fzf-lua").setup({
-                fzf_opts = { ["--layout"] = "default", ["--marker"] = "+" },
-                winopts = {
-                    border = { " ", " ", " ", " ", " ", " ", " ", " " },
-                    preview = {
-                        scrollbar = "none",
-                        layout = "flex",
-                        hidden = "nohidden",
-                    },
+        opts = {
+            "telescope",
+            fzf_opts = { ["--layout"] = "default", ["--marker"] = "+" },
+            winopts = {
+                border = { "", "", "", "", "", "", "", "" },
+                preview = {
+                    scrollbar = "none",
+                    scrollchars = { "", "" },
+                    border = "none",
+                    title = false,
+                    layout = "flex",
+                    hidden = "nohidden",
+                    winopts = {},
+                    vertical = "up:80%",
+                    horizontal = "right:80%",
                 },
-                fzf_colors = {
-                    ["fg"] = { "fg", "CursorLine" },
-                    ["bg"] = { "bg", "Normal" },
-                    ["hl"] = { "fg", "Comment" },
-                    ["fg+"] = { "fg", "Normal" },
-                    ["bg+"] = { "bg", "CursorLine" },
-                    ["hl+"] = { "fg", "Statement" },
-                    ["info"] = { "fg", "PreProc" },
-                    ["prompt"] = { "fg", "Conditional" },
-                    ["pointer"] = { "fg", "Exception" },
-                    ["marker"] = { "fg", "Keyword" },
-                    ["spinner"] = { "fg", "Label" },
-                    ["header"] = { "fg", "Comment" },
-                    ["gutter"] = { "bg", "Normal" },
-                },
-            })
+            },
+            hls = {
+                normal = "TelescopeNormal",
+                border = "TelescopeBorder",
+                title = "TelescopeTitle",
+                help_normal = "TelescopeNormal",
+                help_border = "TelescopeBorder",
+                preview_normal = "TelescopeNormal",
+                preview_border = "TelescopeNormal",
+                preview_title = "TelescopeTitle",
+                -- builtin preview only
+                cursor = "TelescopeNormal",
+                cursorline = "TelescopeNormal",
+                cursorlinenr = "TelescopePreviewLine",
+                search = "TelescopeNormal",
+            },
+        },
+        config = function(_, opts)
+            require("fzf-lua").setup(opts)
 
             local wk = require("which-key")
             wk.register({
