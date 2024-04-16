@@ -1,5 +1,4 @@
 return {
-    { "pest-parser/pest.vim" },
     { "kaarmu/typst.vim", ft = "typst", lazy = false },
     {
         "chomosuke/typst-preview.nvim",

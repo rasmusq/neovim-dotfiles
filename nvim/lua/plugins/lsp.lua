@@ -65,7 +65,6 @@ return {
             })
             -- Commented out because rustaceanvim sets it up on its own
             -- lspconfig.rust_analyzer.setup({ capabilities = capabilities })
-            lspconfig.pest_ls.setup({ capabilities = capabilities })
             lspconfig.grammarly.setup({
                 capabilities = capabilities,
                 filetypes = { "markdown", "latex", "typst" },
@@ -192,7 +191,6 @@ return {
                 "marksman",
                 "pyright",
                 "rust_analyzer",
-                "pest_ls",
                 "tsserver",
                 "typst_lsp",
             },
@@ -200,13 +198,7 @@ return {
         config = function(_, opts)
             local mason_lspconfig = require("mason-lspconfig")
             mason_lspconfig.setup(opts)
-
-            mason_lspconfig.setup_handlers({
-
-                ["pest_ls"] = function()
-                    require("pest-vim").setup({})
-                end,
-            })
+            mason_lspconfig.setup_handlers({})
         end,
     },
     {
