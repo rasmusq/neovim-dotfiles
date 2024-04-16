@@ -1,5 +1,13 @@
 return {
     {
+        "ggandor/leap.nvim",
+        config = function(_, opts)
+            vim.keymap.set({ "n", "x", "o" }, "mt", "<Plug>(leap-forward)")
+            vim.keymap.set({ "n", "x", "o" }, "mT", "<Plug>(leap-backward)")
+            vim.keymap.set({ "n", "x", "o" }, "mts", "<Plug>(leap-from-window)")
+        end,
+    },
+    {
         "aserowy/tmux.nvim",
         opts = {
             copy_sync = {
