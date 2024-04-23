@@ -194,7 +194,7 @@ return {
             update_interval = 100,
             set_dark_mode = function()
                 vim.api.nvim_set_option("background", "dark")
-                vim.cmd("colorscheme rose-pine-main")
+                vim.cmd("colorscheme default")
                 if not vim.g.neovide then
                     vim.cmd("highlight Normal guibg=NONE ctermbg=NONE")
                 end
@@ -202,7 +202,7 @@ return {
             end,
             set_light_mode = function()
                 vim.api.nvim_set_option("background", "light")
-                vim.cmd("colorscheme rose-pine-dawn")
+                vim.cmd("colorscheme default")
                 if not vim.g.neovide then
                     vim.cmd("highlight Normal guibg=NONE ctermbg=NONE")
                 end
